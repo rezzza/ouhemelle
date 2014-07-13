@@ -14,7 +14,7 @@ var watch = require('gulp-watch');
 
 gulp.task('default', ['clean', 'build']);
 
-gulp.task('build', ['app:css', 'vendor:css', 'app:js', 'vendor:js']);
+gulp.task('build', ['app:css', 'vendor:css', 'app:js', 'vendor:js', 'vendor:js:debug']);
 
 gulp.task('clean', function () {
     return gulp.src('web/statics/', {read: false})
@@ -57,13 +57,26 @@ gulp.task('vendor:js', ['clean'], function () {
             'bower_components/html5shiv/dist/html5shiv.js',
             'bower_components/respond/dest/respond.src.js',
             'bower_components/jquery/dist/jquery.js',
-            'bower_components/bootstrap/dist/js/bootstrap.js'
+            'bower_components/bootstrap/dist/js/bootstrap.js',
+            'bower_components/underscore/underscore.js',
+            'bower_components/raphael/raphael.js',
+            'bower_components/js-sequence-diagrams/build/sequence-diagram-min.js'
         ])
         .pipe(concat('vendor.js'))
         .pipe(gulp.dest('web/statics/'))
         .on('error', gutil.log);
 });
 
+
+gulp.task('vendor:js:debug', ['clean'], function () {
+    return gulp
+        .src([
+            'bower_components/js-sequence-diagrams/build/sequence-diagram-min.js',
+            'bower_components/js-sequence-diagrams/build/sequence-diagram-min.js.map'
+        ])
+        .pipe(gulp.dest('web/statics/'))
+        .on('error', gutil.log);
+});
 
 gulp.task('watch', ['clean', 'build'], function () {
     watch({

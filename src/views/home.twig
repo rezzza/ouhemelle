@@ -4,23 +4,35 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
 
-    <!-- Bootstrap -->
+    <title>ouhemelle</title>
+
     <link href="/statics/vendor.css" rel="stylesheet">
     <link href="/statics/app.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 <body>
-<h1>Hello, world!</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <form role="form" class="diagram-editor">
+                <div class="form-group">
+                    <textarea class="form-control" rows="10">A->B: Message</textarea>
+                </div>
+
+                <pre class="compilation-error"></pre>
+
+                <button type="submit" class="btn btn-default" disabled>Submit</button>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <div id="diagram-preview"></div>
+        </div>
+    </div>
+</div>
 
 
 <script src="/statics/vendor.js"></script>
+<script src="/statics/sequence-diagram-min.js"></script>
 <script src="/statics/app.js"></script>
 </body>
 </html>
