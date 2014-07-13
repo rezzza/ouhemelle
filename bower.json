@@ -1,0 +1,16 @@
+{
+  "name": "js-sequence-diagrams-persist",
+  "version": "0.0.0",
+  "authors": [
+    "Armand Abric <armand@verylastroom.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+    "name": "rezzza/js-sequence-diagrams-persist",
+    "authors": [
+        {
+            "name": "Armand Abric",
+            "email": "armand@verylastroom.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Rezzza\\DiagramGenerator\\": "src/" }
+    },
+    "require": {
+        "silex/silex": "~1.2",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "symfony/twig-bridge": "~2.3"
+    }
+}
