@@ -2,7 +2,7 @@ var gulp = require('gulp');
 
 var path = require('path');
 var gutil = require('gulp-util');
-var clean = require('gulp-clean');
+var rimraf = require('gulp-rimraf');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
@@ -14,11 +14,11 @@ var watch = require('gulp-watch');
 
 gulp.task('default', ['clean', 'build']);
 
-gulp.task('build', ['app:css', 'vendor:css', 'app:js', 'vendor:js', 'vendor:js:debug']);
+gulp.task('build', ['app:css', 'vendor:css', 'app:js', 'vendor:js', 'vendor:js']);
 
 gulp.task('clean', function () {
     return gulp.src('web/statics/', {read: false})
-        .pipe(clean());
+        .pipe(rimraf());
 });
 
 gulp.task('app:css', ['clean'], function () {
@@ -68,11 +68,10 @@ gulp.task('vendor:js', ['clean'], function () {
 });
 
 
-gulp.task('vendor:js:debug', ['clean'], function () {
+gulp.task('vendor:js', ['clean'], function () {
     return gulp
         .src([
-            'bower_components/js-sequence-diagrams/build/sequence-diagram-min.js',
-            'bower_components/js-sequence-diagrams/build/sequence-diagram-min.js.map'
+            'bower_components/js-sequence-diagrams/build/sequence-diagram-min.js'
         ])
         .pipe(gulp.dest('web/statics/'))
         .on('error', gutil.log);
@@ -85,17 +84,3 @@ gulp.task('watch', ['clean', 'build'], function () {
         emitOnGlob: false
     }, ['build']);
 });
-
-
-var customTask = {
-    generateCssFromBundle: function (sourcePath, finalDirectoryPath) {
-        return gulp
-            .src(sourcePath)
-            .pipe(changed(finalDirectoryPath))
-            .pipe(less({
-                paths: [ path.join(__dirname, 'less', 'includes') ]
-            }))
-            .pipe(gulp.dest(finalDirectoryPath))
-            .on('error', gutil.log);
-    }
-};
