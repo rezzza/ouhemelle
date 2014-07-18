@@ -27,8 +27,11 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) {
     }
 });
 
-$app['diagram.controller'] = $app->share(function() use ($app) {
-        return new Rezzza\DiagramGenerator\DiagramController($app);
+$fileManager = new \Rezzza\DiagramGenerator\File\Manager();
+$router = new \Rezzza\DiagramGenerator\Router();
+
+$app['diagram.controller'] = $app->share(function() use ($app, $router, $fileManager) {
+        return new Rezzza\DiagramGenerator\DiagramController($app, $router, $fileManager, __DIR__);
     });
 
 $app->get('/', function() use($app) {

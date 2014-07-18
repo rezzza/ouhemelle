@@ -15,6 +15,12 @@
   ],
   "devDependencies": {
     "html5shiv": "~3.7.2",
-    "respond": "~1.4.2"
+    "respond": "~1.4.2",
+    "jquery.textchange": "https://gist.github.com/424774.git",
+    "js-sequence-diagrams": "git://github.com/bramp/js-sequence-diagrams.git#~1.0.4",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0",
+    "underscore": "~1.6.0",
+    "raphael": "~2.1.2"
   }
 }

@@ -9,6 +9,8 @@ var rename = require('gulp-rename');
 var less = require('gulp-less');
 var changed = require('gulp-changed');
 var watch = require('gulp-watch');
+var sourcemaps = require('gulp-sourcemaps');
+var debug = require('gulp-debug');
 
 
 
@@ -46,7 +48,10 @@ gulp.task('app:js', ['clean'], function () {
         .src([
             'src/statics/main.js'
         ])
-        .pipe(concat('app.js'))
+//        .pipe(sourcemaps.init())
+            .pipe(concat('app.js'))
+//            .pipe(uglify())
+//        .pipe(sourcemaps.write())
         .pipe(gulp.dest('web/statics/'))
         .on('error', gutil.log);
 });
@@ -60,19 +65,13 @@ gulp.task('vendor:js', ['clean'], function () {
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/underscore/underscore.js',
             'bower_components/raphael/raphael.js',
-            'bower_components/js-sequence-diagrams/build/sequence-diagram-min.js'
+            'bower_components/js-sequence-diagrams/build/sequence-diagram-min.js',
+            'bower_components/jquery.textchange/jquery.textchange.js'
         ])
-        .pipe(concat('vendor.js'))
-        .pipe(gulp.dest('web/statics/'))
-        .on('error', gutil.log);
-});
-
-
-gulp.task('vendor:js', ['clean'], function () {
-    return gulp
-        .src([
-            'bower_components/js-sequence-diagrams/build/sequence-diagram-min.js'
-        ])
+//        .pipe(sourcemaps.init())
+            .pipe(concat('vendor.js'))
+//            .pipe(uglify())
+//        .pipe(sourcemaps.write())
         .pipe(gulp.dest('web/statics/'))
         .on('error', gutil.log);
 });

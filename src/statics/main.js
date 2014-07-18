@@ -32,7 +32,18 @@ $(window).on('load', function() {
     }
 
     previewCallback(textareaEditor, diagramPreview, compilationErrorLog);
-    textareaEditor.on('change keyup', function() {
-        previewCallback(textareaEditor, diagramPreview, compilationErrorLog);
+
+    var timeout;
+    textareaEditor.on('change textchange', function() {
+        clearTimeout(timeout);
+//        $('#ajaxFired').html('<strong>Typing...</strong>');
+//        var self = this;
+        timeout = setTimeout(function () {
+            previewCallback(textareaEditor, diagramPreview, compilationErrorLog);
+//            $('#ajaxFired').html('<strong>Saved</strong>: ' + $(self).val());
+        }, 1000);
+
+
+
     });
 });

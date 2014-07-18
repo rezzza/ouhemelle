@@ -4,44 +4,60 @@ namespace Rezzza\DiagramGenerator;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Rezzza\DiagramGenerator\File;
 
 class DiagramController
 {
     /**
      * @var Application
      */
-    private $add;
+    private $app;
 
-    private $filesystem;
+    /**
+     * @var Router
+     */
+    private $router;
 
-    private $svgService;
+    /**
+     * @var File\Manager
+     */
+    private $fileManger;
 
-    private $converter;
+    /**
+     * @var string
+     */
+    private $webPath;
 
-    function __construct(Application $app)
+    function __construct(Application $app, Router $router, File\Manager $fileManager, $webPath)
     {
         $this->app = $app;
+        $this->router = $router;
+        $this->fileManger = $fileManager;
+        $this->webPath = $webPath;
     }
 
     public function addDiagramAction(Request $request)
     {
-        $name = $request->request->get('name');
+        $uid = uniqid();
         $svg = $request->request->get('svg');
         $text = $request->request->get('text');
 
-        $diagram = new Diagram($name, $svg, $text);
+        $diagram = new Diagram($uid, $svg, $text);
 
-        $svgFile = $this->$svgService->create($diagram);
-        $this->$filesystem->persist($svgFile, '/path.svg');
-        $pngFile = $this->converter->convertSvgToPng($svgFile);
-        $this->$filesystem->persist($pngFile);
-        $this->$filesystem->delete($svgFile);
+        $svgFile = File\Svg::fromDiagram($diagram);
+        $this->fileManger->persist($svgFile, $this->webPath . '/svg/');
 
-        $url = $this->url($pngFile);
+        $pngFile = $this->fileManger->convertSvgToPng($svgFile);
+        $this->filesystem->persist($pngFile);
+        $this->filesystem->delete($svgFile);
 
-        return $this->app->json(array(
-            'url' => $url
-        ));
+        $url = $this->router->url($pngFile);
+
+        return $this->app->json(
+            array(
+                'url' => $url
+            )
+        );
     }
 
 } 

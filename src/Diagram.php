@@ -1,12 +1,13 @@
 <?php
+
 namespace Rezzza\DiagramGenerator;
 
-
-class Diagram {
+class Diagram
+{
     /**
      * @var string
      */
-    private $name;
+    private $uid;
 
     /**
      * @var string
@@ -18,10 +19,28 @@ class Diagram {
      */
     private $svg;
 
-    function __construct($name, $svg, $text)
+    function __construct($uid, $svg, $text)
     {
-        $this->name = $name;
+        $this->uid = $uid;
         $this->svg = $svg;
         $this->text = $text;
     }
+
+    /**
+     * @return string
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSvg()
+    {
+        return $this->svg;
+    }
+
+
 } 
